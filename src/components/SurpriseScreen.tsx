@@ -128,6 +128,7 @@ export function SurpriseScreen() {
 
 function SecondSongView() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -232,10 +233,11 @@ function SecondSongView() {
 
       {/* forma */}
       <motion.div
-        className="w-40 mb-10 self-start"
+        className="w-40 mb-10 self-start cursor-pointer hover:scale-105 transition-transform"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.45 }}
+        onClick={() => setShowVideo(true)}
       >
         <div className="rounded-xl overflow-hidden bg-warm border border-border">
           <img
@@ -246,6 +248,37 @@ function SecondSongView() {
           />
         </div>
       </motion.div>
+
+      {/* video modal */}
+      {showVideo && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          onClick={() => setShowVideo(false)}
+        >
+          <motion.div
+            className="relative w-full max-w-2xl"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowVideo(false)}
+              className="absolute -top-10 right-0 text-white/70 hover:text-white text-sm"
+            >
+              kapat ✕
+            </button>
+            <video
+              src="/berke-dogum-gunu.mp4"
+              controls
+              autoPlay
+              className="w-full rounded-xl"
+            />
+          </motion.div>
+        </motion.div>
+      )}
 
       {/* mesaj */}
       <motion.div
