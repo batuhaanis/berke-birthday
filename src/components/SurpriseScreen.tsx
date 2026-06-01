@@ -237,7 +237,7 @@ function SecondSongView() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.45 }}
-        onClick={() => setShowVideo(true)}
+        onClick={() => { setShowVideo(true); audioRef.current?.pause(); }}
       >
         <div className="rounded-xl overflow-hidden bg-warm border border-border">
           <img
@@ -255,7 +255,7 @@ function SecondSongView() {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          onClick={() => setShowVideo(false)}
+          onClick={() => { setShowVideo(false); audioRef.current?.play().catch(() => {}); }}
         >
           <motion.div
             className="relative w-full max-w-2xl"
@@ -265,7 +265,7 @@ function SecondSongView() {
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              onClick={() => setShowVideo(false)}
+              onClick={() => { setShowVideo(false); audioRef.current?.play().catch(() => {}); }}
               className="absolute -top-10 right-0 text-white/70 hover:text-white text-sm"
             >
               kapat ✕
